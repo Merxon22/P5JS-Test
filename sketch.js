@@ -20,9 +20,13 @@ function randomColor() {
 
 function setup() {
   createCanvas(600, 400);
-  background(220);
   rectMode(CENTER);
-  
+}
+
+function draw() {
+  background(220);
+
+  randomSeed(42)
   // Background
   for(i=0; i<1000; i++) {
     noStroke();
@@ -45,4 +49,6 @@ function setup() {
       rect(x, y, size1 * 0.5);
     }
   }
+
+  circle(mouseX, mouseY, 20);
 }
