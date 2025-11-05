@@ -1,7 +1,3 @@
-function preload() {
-    table = loadTable("colors.csv", "csv", "header");
-}
-
 let canvas = [];
 
 const palette = [
