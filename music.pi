@@ -1,0 +1,42 @@
+scale1 = (scale :e4, :minor_pentatonic, num_octaves: 2).mirror
+scale2 = (scale :g4, :major_pentatonic, num_octaves: 2).mirror
+scale3 = (scale :a3, :major_pentatonic, num_octaves: 2).mirror
+scale4 = (scale :c4, :major_pentatonic, num_octaves: 2).mirror
+
+all_notes = scale1 + scale1 + scale2 + scale2 + scale3 + scale3 + scale4 + scale4
+
+live_loop :melody do
+  use_bpm 140
+  with_fx :reverb, room: 0.5, mix: 0.8 do
+    use_synth :piano
+    play all_notes.tick release: 0.2, attack: 0.2, amp: rrand(0.1, 2)
+    sleep 0.25
+  end
+end
+
+live_loop :hum do
+  use_bpm 140
+  with_fx :reverb, room: 0.8, mix: 0.5 do
+    sample :ambi_glass_hum
+    sleep 4
+  end
+end
+
+live_loop :beat do
+  use_bpm 140
+  with_fx :echo, phase: 0.5, decay: 2, mix: 1 do
+    sample :drum_bass_soft, amp: 0.5
+    sleep rrand_i(1, 4) * 0.5
+  end
+end
+
+live_loop :tickle do
+  use_bpm 140
+  use_synth :organ_tonewheel
+  with_fx :echo, phase: 0.5, decay: 4, mix: 0.3 do
+    with_fx :reverb do
+      play all_notes.choose, release: 4, amp: 0.4, attack: 1
+      sleep 4
+    end
+  end
+end
